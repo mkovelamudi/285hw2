@@ -3,11 +3,13 @@ import json
 from datetime import datetime
 from pytz import reference
 from flask import Flask, jsonify, request, render_template
+import os
 
 
 app = Flask(__name__, template_folder="./")
 
 @app.route('/')
+@app.route('/home')
 def initial_page():
     return render_template('Finance.html')
 
@@ -68,4 +70,5 @@ def send_error_response(msg):
         
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
